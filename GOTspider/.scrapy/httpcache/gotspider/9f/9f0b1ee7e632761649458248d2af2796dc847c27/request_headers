@@ -1,0 +1,4 @@
+Accept-Encoding: gzip,deflate
+User-Agent: Scrapy/1.5.0 (+https://scrapy.org)
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+Accept-Language: en
