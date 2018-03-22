@@ -15,9 +15,7 @@ import scrapy
 class GotspiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    # id = scrapy.Field()  # id
     chapter = scrapy.Field()  # 章节
-    # title = scrapy.Field()  # 题目
     content = scrapy.Field()  # 小说内容
     characters = scrapy.Field()  # 文中出现的角色
     url = scrapy.Field()  # 章节网址，方便返工
