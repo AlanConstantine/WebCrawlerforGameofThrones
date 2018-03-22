@@ -2,17 +2,16 @@
 # @Author: Alan Lau
 # @Date  : 2018-03-21 21:46:27
 
-import time
-import xlrd
 import redis
 import scrapy
 from lxml import etree
 from random import randint
 from scrapy.http import Request
 from GOTspider.items import GotspiderItem
+from scrapy_redis.spiders import RedisSpider
 
 
-class Spider(scrapy.Spider):
+class Spider(RedisSpider):
     name = 'gotspider'
     main_url = 'https://www.sbkk88.com'
     bas_url = 'http://www.sbkk88.com/mingzhu/waiguowenxuemingzhu/bingyuhuozhige/'
@@ -53,5 +52,5 @@ class Spider(scrapy.Spider):
             for role in row:
                 if role in content:
                     characters.append(row[0])
-        item['characters'] = list(set(characters))
+        item['characters'] = '/'.join(list(set(characters)))
         yield item

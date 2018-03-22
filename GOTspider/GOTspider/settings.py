@@ -14,7 +14,7 @@ BOT_NAME = 'GOTspider'
 SPIDER_MODULES = ['GOTspider.spiders']
 NEWSPIDER_MODULE = 'GOTspider.spiders'
 
-
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'GOTspider (+http://www.yourdomain.com)'
 
