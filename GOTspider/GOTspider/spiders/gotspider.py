@@ -12,13 +12,15 @@ from scrapy.http import Request
 from GOTspider.items import GotspiderItem
 
 
-class spider(scrapy.Spider):
-    # def __init__(self):
-        # super(spider, scrapy.spider.__init__(*args))
+class Spider(scrapy.Spider):
     name = 'gotspider'
     main_url = 'https://www.sbkk88.com'
     bas_url = 'http://www.sbkk88.com/mingzhu/waiguowenxuemingzhu/bingyuhuozhige/'
     tail_url = '.html'
+
+    def __init__(self):
+        self.characterlists = self.read_xls('./roles.xlsx')
+        print(self.characterlists)
 
     def start_requests(self):
         for i in range(1, 6):
@@ -41,13 +43,15 @@ class spider(scrapy.Spider):
         item['chapter'] = selector.xpath('//div[@id="f_title1"]/h1/text()')[0]
         item['content'] = ''.join(selector.xpath(
             '//div[@id="f_content1"]/div[@id="f_article"]/p/text()'))
-        pass
+        characters = []
+        # for row in self.characterlists:
+        #     for ech in row:
+        #         pass
 
-
-def read_xls(path):
-    xl = xlrd.open_workbook(path)
-    sheet = xl.sheets()[0]  # 0表示读取第一个工作表sheet
-    data = []
-    for i in range(0, sheet.nrows):  # ncols表示按列读取
-        data.append(list(sheet.row_values(i)))
-    return data
+    def read_xls(self, path):
+        xl = xlrd.open_workbook(path)
+        sheet = xl.sheets()[0]  # 0表示读取第一个工作表sheet
+        data = []
+        for i in range(1, sheet.nrows):  # ncols表示按列读取
+            data.append(list(sheet.row_values(i)))
+        return data
