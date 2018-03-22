@@ -3,6 +3,7 @@
 # @Date  : 2018-03-21 21:46:27
 
 import time
+import xlrd
 import redis
 import scrapy
 from lxml import etree
@@ -15,7 +16,7 @@ class spider(scrapy.Spider):
     # def __init__(self):
         # super(spider, scrapy.spider.__init__(*args))
     name = 'gotspider'
-    allowed_domains = 'https://www.sbkk88.com'
+    main_url = 'https://www.sbkk88.com'
     bas_url = 'http://www.sbkk88.com/mingzhu/waiguowenxuemingzhu/bingyuhuozhige/'
     tail_url = '.html'
 
@@ -30,12 +31,23 @@ class spider(scrapy.Spider):
         son_urls = selector.xpath(
             '//div[@class="mingzhuMain"]/div[@class="mingzhuLeft"]/ul[@class="leftList"]/li/a/@href')
         for son_url in son_urls:
-            son_url = self.allowed_domains + son_url
-            yield Request(url=son_url, callback=self.get_content, meta={'son_url': son_url})
+            son_url = self.main_url + son_url
+            yield Request(son_url, self.get_content, meta={'son_url': son_url})
 
     def get_content(self, response):
         item = GotspiderItem()
         item['url'] = str(response.meta['son_url'])
         selector = etree.HTML(response.text)
-        # item['chapter'] =
+        item['chapter'] = selector.xpath('//div[@id="f_title1"]/h1/text()')[0]
+        item['content'] = ''.join(selector.xpath(
+            '//div[@id="f_content1"]/div[@id="f_article"]/p/text()'))
         pass
+
+
+def read_xls(path):
+    xl = xlrd.open_workbook(path)
+    sheet = xl.sheets()[0]  # 0表示读取第一个工作表sheet
+    data = []
+    for i in range(0, sheet.nrows):  # ncols表示按列读取
+        data.append(list(sheet.row_values(i)))
+    return data
