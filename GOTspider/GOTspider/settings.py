@@ -14,12 +14,33 @@ BOT_NAME = 'GOTspider'
 SPIDER_MODULES = ['GOTspider.spiders']
 NEWSPIDER_MODULE = 'GOTspider.spiders'
 
-SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+# SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+
+LOG_LEVEL = 'INFO'
+
+DOWNLOAD_TIMEOUT = 100
+# 设置超时时间
+
+CLOSESPIDER_TIMEOUT = 360
+
+
+# ITEM_PIPELINES = ["scrapy_redis.pipelines.GotspiderPipeline"]
+# ITEM_PIPELINES = {
+#     'GOTspider.pipelines.GotspiderPipeline': 300
+# }
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
+REDIS_DB = 0
+MY_REDIS = 'myspider:start_urls'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'GOTspider (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
+
+RANDOMIZE_DOWNLOAD_DELAY = True
+# 随机延迟0.5-1.5秒抓取下一个界面
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
