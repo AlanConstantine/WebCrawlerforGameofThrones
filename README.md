@@ -1,5 +1,8 @@
 # Scrapy+redis+mongodb分布式爬虫抓取《冰与火之歌》
 
+#### 博客地址
+[Scrapy+redis+mongodb分布式爬虫抓取小说《冰与火之歌1-5》](https://blog.csdn.net/alanconstantinelau/article/details/79665153)
+
 #### 技术栈
 * Scrapy
 * redis
