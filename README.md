@@ -14,7 +14,7 @@
 * ubuntu 16.04LTS
 
 #### 思路
-master只需要准备redis，slave先将所有的小说章节界面的url抓取下来，通过redis发动到master的内存，再由master分配任务给slave，实现分布式
+master只需要准备redis，slave先将所有的小说章节界面的url抓取下来，通过redis发送到master的内存，再由master分配任务给slave，实现分布式
 
 #### 运行
 * 执行runspider.py
